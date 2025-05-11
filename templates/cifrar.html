@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cifrar Mensagem</title>
+</head>
+<body>
+    <h1>ElGamal - Cifrar</h1>
+    <form method="post">
+        <label for="message">Mensagem:</label>
+        <input type="text" id="message" name="message" required>
+        <button type="submit">Cifrar</button>
+    </form>
+
+        {% if result %}
+        <h2>Mensagem Original:</h2>
+        <p>{{ result.original }}</p>
+        <h2>Mensagem Cifrada:</h2>
+        <ul>
+            {% for pair in result.encrypted %}
+                <li>a = {{ pair[0] }}, b = {{ pair[1] }}</li>
+            {% endfor %}
+        </ul>
+        <h3>Copie e cole para decifrar:</h3>
+        <textarea rows="4" cols="50" readonly>
+{% for pair in result.encrypted -%}
+({{ pair[0] }},{{ pair[1] }}){% if not loop.last %};{% endif %}
+{%- endfor %}
+        </textarea>
+        <a href="{{ url_for('decifrar') }}">Decifrar</a>
+    {% endif %}
+</body>
+</html>
