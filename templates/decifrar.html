@@ -2,18 +2,60 @@
 <html>
 <head>
     <title>Decifrar Mensagem</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            width: 400px;
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+        }
+        input[type="submit"] {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #3498db;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #3498db;
+        }
+    </style>
 </head>
 <body>
-    <h1>ElGamal - Decifrar</h1>
-    <form method="POST">
-        <label for="pairs">Insira os pares cifrados (ex: (12,34);(56,78)):</label><br>
-        <textarea id="pairs" name="pairs" rows="4" cols="50"></textarea><br><br>
-        <input type="submit" value="Decifrar">
-    </form>
-    {% if decrypted is defined %}
-        <h2>Mensagem Decifrada:</h2>
-        <p>{{ decrypted }}</p>
-    {% endif %}
-    <a href="{{ url_for('cifrar') }}">Voltar</a>
+    <div class="container">
+        <h1>ElGamal - Decifrar</h1>
+        <form method="POST">
+            <label for="pairs">Insira os pares cifrados:</label><br>
+            <textarea id="pairs" name="pairs" rows="4" required></textarea><br>
+            <input type="submit" value="Decifrar">
+        </form>
+        {% if decrypted is defined %}
+            <h2>Mensagem Decifrada:</h2>
+            <p>{{ decrypted }}</p>
+        {% endif %}
+        <a href="{{ url_for('cifrar') }}">Voltar</a>
+    </div>
 </body>
 </html>

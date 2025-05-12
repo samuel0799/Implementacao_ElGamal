@@ -2,31 +2,83 @@
 <html>
 <head>
     <title>Cifrar Mensagem</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            width: 400px;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #3498db;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #3498db;
+        }
+    </style>
 </head>
 <body>
-    <h1>ElGamal - Cifrar</h1>
-    <form method="post">
-        <label for="message">Mensagem:</label>
-        <input type="text" id="message" name="message" required>
-        <button type="submit">Cifrar</button>
-    </form>
+    <div class="container">
+        <h1>ElGamal - Cifrar</h1>
+        <form method="post">
+            <label for="message">Mensagem:</label>
+            <input type="text" id="message" name="message" required>
+            <button type="submit">Cifrar</button>
+        </form>
 
         {% if result %}
-        <h2>Mensagem Original:</h2>
-        <p>{{ result.original }}</p>
-        <h2>Mensagem Cifrada:</h2>
-        <ul>
-            {% for pair in result.encrypted %}
-                <li>a = {{ pair[0] }}, b = {{ pair[1] }}</li>
-            {% endfor %}
-        </ul>
-        <h3>Copie e cole para decifrar:</h3>
-        <textarea rows="4" cols="50" readonly>
+            <h2>Mensagem Original:</h2>
+            <p>{{ result.original }}</p>
+            <h2>Mensagem Cifrada:</h2>
+            <ul style="text-align: left;">
+                {% for pair in result.encrypted %}
+                    <li>a = {{ pair[0] }}, b = {{ pair[1] }}</li>
+                {% endfor %}
+            </ul>
+            <h3>Copie e cole para decifrar:</h3>
+            <textarea rows="4" readonly>
 {% for pair in result.encrypted -%}
 ({{ pair[0] }},{{ pair[1] }}){% if not loop.last %};{% endif %}
 {%- endfor %}
-        </textarea>
-        <a href="{{ url_for('decifrar') }}">Decifrar</a>
-    {% endif %}
+            </textarea>
+            <a href="{{ url_for('decifrar') }}">
+                <button type="button">Decifrar</button>
+            </a>
+        {% endif %}
+    </div>
 </body>
 </html>
