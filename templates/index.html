@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Configurar Parâmetros ElGamal</title>
+</head>
+<body>
+    <h1>Configurar Parâmetros ElGamal</h1>
+    <form method="post">
+        <label for="p">Primo p:</label><br>
+        <input type="text" id="p" name="p" value="{{ params.p }}"><br>
+        <label for="g">Gerador g:</label><br>
+        <input type="text" id="g" name="g" value="{{ params.g }}"><br>
+        <label for="x">Chave privada x:</label><br>
+        <input type="text" id="x" name="x" value="{{ params.x }}"><br>
+        <input type="submit" value="Cifrar">
+    </form>
+<button type="button" onclick="gerarParametros()">Gerar parâmetros aleatórios</button>
+<script>
+function gerarParametros() {
+    fetch("{{ url_for('generate_params') }}", {method: "POST"})
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("p").value = data.p;
+        document.getElementById("g").value = data.g;
+        document.getElementById("x").value = data.x;
+    });
+}
+</script>
+ </body>
+</html>

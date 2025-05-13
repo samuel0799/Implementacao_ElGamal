@@ -1,4 +1,5 @@
 import random
+from Crypto.Util import number
 
 def mod_exp(base, exp, mod):
     result = 1
@@ -22,6 +23,23 @@ g = 2
 x = 127
 y = mod_exp(g, x, p)
 
+def set_parameters(new_p, new_g, new_x):
+    global p, g, x, y
+    p = new_p
+    g = new_g
+    x = new_x
+    y = pow(g, x, p)
+
+def get_parameters():
+    return {"p": p, "g": g, "x": x, "y": y}
+
+def generate_random_parameters(bits):
+    p = number.getPrime(bits)
+    # print("p:", p)
+    # print("Dígitos de p:", len(str(p)))
+    g = random.randint(2, p - 2)
+    x = random.randint(2, p - 2)
+    return p, g, x
 
 def text_to_int_list(text):
     return [ord(c) for c in text]

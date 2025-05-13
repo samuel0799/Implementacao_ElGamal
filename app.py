@@ -1,13 +1,25 @@
-from flask import Flask, render_template, request, redirect, url_for
-from elgamal import encrypt_text, decrypt_pairs
+from flask import Flask, render_template, request, redirect, url_for, jsonify
+from elgamal import encrypt_text, decrypt_pairs, set_parameters, get_parameters, generate_random_parameters
 
 app = Flask(__name__)
 
 encrypted_storage = [] 
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def index():
-    return redirect(url_for("cifrar"))
+    if request.method == "POST":
+        p = int(request.form["p"])
+        g = int(request.form["g"])
+        x = int(request.form["x"])
+        set_parameters(p, g, x)
+        return redirect(url_for("cifrar"))
+    return render_template("index.html", params=get_parameters())
+
+@app.route("/generate_params", methods=["POST"])
+def generate_params():
+    p, g, x = generate_random_parameters(bits=512)
+    set_parameters(p, g, x)
+    return jsonify({"p": str(p), "g": str(g), "x": str(x)})
 
 @app.route("/cifrar", methods=["GET", "POST"])
 def cifrar():

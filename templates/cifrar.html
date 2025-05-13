@@ -70,11 +70,21 @@
                 {% endfor %}
             </ul>
             <h3>Copie e cole para decifrar:</h3>
-            <textarea rows="4" readonly>
+            <textarea id="encryptedText" rows="4" cols="50" readonly>
 {% for pair in result.encrypted -%}
 ({{ pair[0] }},{{ pair[1] }}){% if not loop.last %};{% endif %}
 {%- endfor %}
-            </textarea>
+</textarea>
+<button type="button" onclick="copyToClipboard()">Copiar</button>
+<script>
+function copyToClipboard() {
+    var textarea = document.getElementById("encryptedText");
+    textarea.select();
+    textarea.setSelectionRange(0, 99999); // Para mobile
+    document.execCommand("copy");
+    alert("Mensagem cifrada copiada!");
+}
+</script>
             <a href="{{ url_for('decifrar') }}">
                 <button type="button">Decifrar</button>
             </a>
