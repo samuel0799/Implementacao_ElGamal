@@ -30,6 +30,7 @@ Abra [http://localhost:5000/cifrar](http://localhost:5000/cifrar) para cifrar me
 
 - `app.py` — Código principal Flask.
 - `elgamal.py` — Funções de criptografia e descriptografia.
+- `templates/index.html` — Página para gerar ou escolher os números das variáveis 
 - `templates/cifrar.html` — Página para cifrar mensagens.
 - `templates/decifrar.html` — Página para decifrar mensagens.
 
