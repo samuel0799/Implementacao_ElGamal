@@ -13,6 +13,7 @@ Este projeto é uma implementação simples do algoritmo de criptografia ElGamal
 
 ```bash
 pip install flask
+pip install pycryptodome
 ```
 
 ### 2. Execute o servidor
